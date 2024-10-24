@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'can' => Illuminate\Auth\Middleware\Authorize::class,
             'guest' => Illuminate\Auth\Middleware\RedirectIfAuthenticated::class,
             'password.confirm' => Illuminate\Auth\Middleware\RequirePassword::class,
+            'admin' => \App\Http\Middleware\Admin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

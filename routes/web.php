@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Middleware\Admin;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/buku', [BookController::class, 'index']);
+Route::get('/buku', [BookController::class, 'index'])->name('buku');
 Route::get('/buku/create', [BookController::class, 'create']) -> name('buku.create');
 Route::post('/buku', [BookController::class, 'store']) -> name('buku.store');
 Route::delete('/buku/{id}', [BookController::class, 'destroy']) -> name('buku.destroy');
@@ -20,6 +21,9 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/store', 'store')->name('store')->middleware('guest');
     Route::get('/login', 'login')->name('login')->middleware('guest');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::get('/dashboard', 'dashboard')->name('dashboard')->middleware('auth');
+    Route::get('/dashboard', 'dashboard')->name('dashboard')->middleware(['auth', 'admin']);
     Route::post('/logout', 'logout')->name('logout')->middleware('auth');
+    Route::get('/restricted', function() {
+        return "Anda merupakan Admin!";
+    })->name('txtAdmin');
 });
