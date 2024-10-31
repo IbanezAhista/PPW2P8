@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\LoginRegisterController;
@@ -27,3 +28,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
         return "Anda merupakan Admin!";
     })->name('txtAdmin');
 });
+
+Route::resource('users', UserController::class);
+Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+Route::post('/update/{id}', [UserController::class, 'update'])->name('update');

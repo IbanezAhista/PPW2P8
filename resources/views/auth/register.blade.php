@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">Register</div>
             <div class="card-body">
-                <form action="{{ route('store') }}" method="post">
+                <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
@@ -17,6 +17,15 @@
                             @if ($errors->has('name'))
                             <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif 
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="role" class="col-md-4 col-form-label text-md-end text-start">Role</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="role" name="role">
+                            @if ($errors->has('role'))
+                                <span class="text-danger">{{ $errors->first('role') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -41,6 +50,15 @@
                         <label for="password_confirmation" class="col-md-4 col-form-label text-md-end text-start">Confirm Password</label>
                         <div class="col-md-6">
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" value="{{ old('photo') }}">
+                            @if ($errors->has('photo'))
+                            <span class="text-danger">{{ $errors->first('photo') }}</span>
+                            @endif 
                         </div>
                     </div>
                     <div class="mb-3 row">

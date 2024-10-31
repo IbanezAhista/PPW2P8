@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class LoginRegisterController extends Controller
 {
@@ -24,13 +25,25 @@ class LoginRegisterController extends Controller
         $request->validate([
             'name'=>'required|string|max:250',
             'email'=>'required|email|max:250|unique:users',
-            'password'=>'required|min:8|confirmed'
+            'password'=>'required|min:1|confirmed',
+            'photo' => 'image|nullable|max:1999',
+            'role' => 'required|string|max:5'
         ]);
 
+        if ($request->hasFile('photo')) {
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $path = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $filenamesimpan = $path . '_' . time() . '_' . $extension;
+            $filename = $request->file('photo')->storeAs('photos', $filenamesimpan);
+        }
+
         User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password)
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'photo' => $filename,
+            'role' => $request->role
         ]);
 
         $credentials = $request->only('email', 'password');
