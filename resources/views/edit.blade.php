@@ -8,11 +8,11 @@
 </head>
 
 <body>
-    <form method="POST" action="{{route('update', $user->id)}}" enctype="multipart/form-data">
-        <img src="{{ asset('storage/photos/' . $user->photo) }}" style="width : 100px">
+    <form method="POST" action="{{route('users.update', $user->id)}}" enctype="multipart/form-data">
+        <img src="{{ asset('storage/' . $user->photo) }}" style="width : 100px">
         @csrf
-        <label>Photo</label>
-        <input type="file" name="photo">
+        <label for="photo">Photo</label>
+        <input type="file" name="photo" id="photo">
         <br>
         <button type="submit">Update</button>
     </form>

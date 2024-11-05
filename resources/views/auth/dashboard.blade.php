@@ -11,6 +11,7 @@
                     <div class="alert alert-success">
                         {{ $message }}
                     </div>
+                    <button class="btn btn-primary float-end"><a href="{{ route('users') }}" class="text-decoration-none text-light">Menuju Users</button>
                 @else
                     <div class="alert alert-success">
                         You are logged in!

@@ -29,6 +29,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
     })->name('txtAdmin');
 });
 
-Route::resource('users', UserController::class);
-Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');

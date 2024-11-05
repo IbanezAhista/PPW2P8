@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'photo' => 'image|nullable|max:10000|mimes:jpg,jpeg,png', // batas ukuran image 10MB
         ]);
 
@@ -32,7 +32,7 @@ class UserController extends Controller
         if ($request->hasFile('photo')) {
             // Hapus image lama
             if ($pengguna->photo != null) {
-                File::delete(public_path() . '/photos/' . $pengguna->photo);
+                File::delete(public_path() . '/images/' . $pengguna->photo);
             }
 
             $filenameWithExt = $request->file('photo')->getClientOriginalName();
@@ -42,7 +42,14 @@ class UserController extends Controller
 
             // Save original image
             $filenameOriginal = $filename . '_Original.' . $extension;
-            $request->file('photo')->storeAs('photos', $filenameOriginal);
+            $filename = $request->file('photo')->storeAs('images', $filenameOriginal, 'public');
+
+            // update nama di database ness mulai soko kene oke?
+            // sedurung e rung di save, pantes ga mlebu ndek database
+            $pengguna->photo = $filename;
+            $pengguna->save();
+            
+            return redirect('users')->with('success', "alhamdullilah foto berhasil disimpan 😎");
         } else {
             if ($pengguna->photo != null) {
                 $filenameOriginal = $pengguna->photo;

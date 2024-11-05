@@ -11,10 +11,10 @@
         <tr>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
-            <td><img src="{{ asset('storage/photos/' . $user->photo) }}" style="width : 100px"></td>
+            <td><img src="{{ asset('storage/' . $user->photo) }}" style="width : 100px" alt="photo {{ $user->name }}"></td>
             <td>
                 <button>
-                    <a href="{{ route('edit', $user->id)}}" class="btn btn-primary float-end">Edit Photo</a>
+                    <a href="{{ route('users.edit', $user->id)}}" class="btn btn-primary float-end">Edit Photo</a>
                 </button>
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                     @method('DELETE') {{ csrf_field() }}
@@ -25,4 +25,11 @@
         </tr>
     @endforeach
 </table>
+<div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endif
+</div>
 @endsection
