@@ -27,7 +27,7 @@ class LoginRegisterController extends Controller
             'email'=>'required|email|max:250|unique:users',
             'password'=>'required|min:1|confirmed',
             'photo' => 'image|nullable|max:1999',
-            'role' => 'required|string|max:5'
+            'role' => 'required'
         ]);
 
         if ($request->hasFile('photo')) {
@@ -35,7 +35,7 @@ class LoginRegisterController extends Controller
             $path = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('photo')->getClientOriginalExtension();
             $filenamesimpan = $path . '_' . time() . '_' . $extension;
-            $filename = $request->file('photo')->storeAs('photos', $filenamesimpan);
+            $filename = $request->file('photo')->storeAs('images', $filenamesimpan, 'public');
         }
 
         User::create([
