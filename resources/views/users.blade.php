@@ -13,9 +13,7 @@
             <td>{{ $user->email }}</td>
             <td><img src="{{ asset('storage/photos/' . $user->photo) }}" style="width : 100px"></td>
             <td>
-                <button>
-                    <a href="{{ route('edit', $user->id)}}" class="btn btn-primary float-end">Edit Photo</a>
-                </button>
+                <a href="{{ route('edit', $user->id)}}" class="btn btn-primary float-end">Edit Photo</a>
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                     @method('DELETE') {{ csrf_field() }}
                     <br />

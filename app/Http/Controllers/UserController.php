@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         if (!Auth::check()) {
             return redirect()->route('login')->withErrors([
-                'email' => 'Please login tonaccess the dashboard.',
+                'email' => 'Please login to access the dashboard.',
             ])->onlyInput('email');
         }
         $users = User::get();
@@ -28,31 +28,27 @@ class UserController extends Controller
 
         // Ambil data pengguna berdasarkan ID
         $pengguna = User::findOrFail($id);
+        $filenameOriginal = $pengguna->photo; // Foto lama akan tetap digunakan jika tidak ada foto baru
 
         if ($request->hasFile('photo')) {
-            // Hapus image lama
+            // Hapus image lama jika ada
             if ($pengguna->photo != null) {
-                File::delete(public_path() . '/photos/' . $pengguna->photo);
+                File::delete(public_path('photos/' . $pengguna->photo));
             }
 
+            // Menyiapkan nama file baru
             $filenameWithExt = $request->file('photo')->getClientOriginalName();
             $path = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('photo')->getClientOriginalExtension();
             $filename = $path . '_' . time();
-
-            // Save original image
             $filenameOriginal = $filename . '_Original.' . $extension;
-            $request->file('photo')->storeAs('photos', $filenameOriginal);
-        } else {
-            if ($pengguna->photo != null) {
-                $filenameOriginal = $pengguna->photo;
-            } else {
-                $filenameOriginal = null;
-            }
+
+            // Simpan foto baru
+            $request->file('photo')->storeAs('photos', $filenameOriginal, 'public');
         }
 
         try {
-            // Update data pengguna dengan data yang baru
+            // Update data pengguna dengan foto baru (jika ada) atau foto lama
             $pengguna->update([
                 'photo' => $filenameOriginal,
             ]);
@@ -64,6 +60,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Failed to update user: ' . $e->getMessage());
         }
     }
+
 
     public function destroy(string $id)
     {
