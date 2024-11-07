@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel 11 Custom User Registration & Login Tutorial - AllPHPTricks.com</title>
+    <link rel="stylesheet" href="{{ asset('lightbox2/dist/css/lightbox.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -29,6 +30,10 @@
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('register')) ? 'active' : '' }}"
                                 href="{{ route('register') }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('gallery')) ? 'active' : '' }}"
+                                href="{{ route('gallery.index') }}">Gallery</a> 
                         </li>
                     @else
                         <li class="nav-item dropdown">
@@ -56,6 +61,7 @@
         @yield('content')
     </div>
 
+    <script src="{{ asset('lightbox2/dist/js/lightbox-plus-jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

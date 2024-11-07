@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Middleware\Admin;
+use App\Http\Controllers\GalleryController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -33,3 +34,9 @@ Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
 Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
+
+Route::resource('gallery', GalleryController::class);
+Route::get('/create', [GalleryController::class, 'create'])->name('gallery.create');
+Route::get('/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::post('/upadate/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
