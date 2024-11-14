@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Middleware\Admin;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SendEmailController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -40,3 +41,7 @@ Route::get('/create', [GalleryController::class, 'create'])->name('gallery.creat
 Route::get('/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
 Route::post('/upadate/{id}', [GalleryController::class, 'update'])->name('gallery.update');
 Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+
+Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-email');
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
+Route::get('/send-email/send/{email}/{name}', [SendEmailController::class, 'send'])->name('send-email.send');
