@@ -13,7 +13,6 @@
             <td>{{ $user->email }}</td>
             <td><img src="{{ asset('storage/' . $user->photo) }}" style="width : 100px" alt="photo {{ $user->name }}"></td>
             <td>
-
                 <button>
                     <a href="{{ route('users.edit', $user->id)}}" class="btn btn-primary float-end">Edit Photo</a>
                 </button>
