@@ -247,4 +247,14 @@ class GalleryController extends Controller
         }
         return redirect('gallery');
     }
+
+    public function indexapi() {
+        $data_buku_bergambar = Post::where('picture', '!=', '')->whereNotNull('picture')->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => "Berhasil mendapatkan semua buku",
+            'data' => $data_buku_bergambar,
+        ], 200);
+    }
 }

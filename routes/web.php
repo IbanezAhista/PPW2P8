@@ -46,3 +46,26 @@ Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-em
 Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
 Route::get('/send-email/send/{email}/{name}', [SendEmailController::class, 'send'])->name('send-email.send');
 
+/* 
+TUTOR CLONE
+1. git clone link_github
+2. cd nama_folder
+3. composer install
+4. php artisan key:generate
+5. php artisan migrate:fresh
+
+TUTOR PUSH GITHUB UAS (clone dan edit code)
+1. git branch (klo branch benar lanjut no.2, klo salah lanjut no.6)
+2. git pull origin nama_branch (setelah pull biasanya ada konflik, dibenerin dulu)
+3. git add .
+4. git commit -m "Initial commit"
+5. git push origin nama_branch (SELESAI)
+6. git checkout 
+7. git switch -c nama_branch (lanjut no. 2)
+
+TUTOR UPLOAD GITHUB KE REPO BARU
+1. git add .
+2. git commit -m "Initial commit"
+3. git remote origin link_repo
+4. git push origin master
+*/
