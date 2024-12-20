@@ -19,7 +19,11 @@ class SendEmail extends Mailable
     }
 
     public function build(){
-        return $this->subject($this->data['subject'])->view('emails.sendemail');
+        if ($this->data['subject'] == 'Registration Successfull') {
+            return $this->subject($this->data['subject'])->view('emails.kirim-email');
+        } else {
+            return $this->subject($this->data['subject'])->view('emails.sendemail');
+        }
     }
 
     /**

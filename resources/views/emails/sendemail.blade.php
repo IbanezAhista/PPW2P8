@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Praktikum Pemrograman Web 2</title>
+    <title>Register Success</title>
 </head>
 <body>
-    <h3>{{ $data['name'] }}</h3>
-    <h4>{{ $data['body'] }}</h4>
-
+    <h1>Selamat Datang</h1>
+    <p>
+        Halo <strong>{{ $data['name'] }}</strong>!!!, Anda telah berhasil mendaftarkan email.
+    </p>
     <p>Terima kasih</p>
 </body>
 </html>
